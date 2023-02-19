@@ -1,0 +1,7 @@
+#!/bin/bash
+usage=$(sudo df -h --output=pcent ~/LOG | tr -d 'Use%')
+if [ $usage -gt 70 ]
+then
+  sudo tar -zcvf ~/BACKUP/arch.tar.gz ~/LOG
+  sudo rm -rf ~/LOG/*
+fi
