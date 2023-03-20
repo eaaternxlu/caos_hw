@@ -1,7 +1,36 @@
 #!/bin/bash
-usage=$(sudo df -h --output=pcent ~/LOG | tr -d 'Use%')
-if [ $usage -gt 70 ]
+FILE=~/LOG
+if ! [ -d "$FILE" ]
 then
-  sudo tar -zcvf ~/BACKUP/arch.tar.gz ~/LOG
-  sudo rm -rf ~/LOG/*
+echo "LOG folder doesn't exist"
+exit
+fi
+FILE=~/BACKUP
+if ! [ -d "$FILE" ]
+then
+echo "BACKUP folder doesn't exist"
+else
+usage=$(sudo df -h --output=pcent ~/LOG | tr -d 'Use%')
+if ! [ $usage -ge 70 ]
+then
+echo "Less than 70% filled"
+exit
+fi
+n=$(ls -l ~/LOG | wc | awk '{print $1}')
+n=$(( $n - 1 ))
+if [ $n -eq 0 ]
+then
+echo "There are no files in the folder"
+exit
+fi
+if [ $n -lt 10 ]
+then
+echo "There are less than 10 files in the folder"
+fi
+sudo mkdir ~/LOG/nfiles
+cd LOG
+sudo mv -f $(ls -pt | tail -n $n) nfiles
+cd ..
+sudo tar -zcvf ~/BACKUP/arch.tar.gz -P ~/LOG/nfiles
+sudo rm -rf ~/LOG/nfiles
 fi
