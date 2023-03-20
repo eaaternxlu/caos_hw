@@ -1,4 +1,5 @@
 #!/bin/bash
+
 FILE=~/LOG
 if ! [ -d "$FILE" ]
 then
@@ -10,20 +11,20 @@ FILE=~/BACKUP
 if ! [ -d "$FILE" ]
 then
 echo "BACKUP folder doesn't exist"
-
 else
+n=$(ls -l ~/LOG | wc | awk '{print $1}')
+n=$(( $n - 1 ))
+
+if [ $n -eq 0 ]
+then
+echo "There are no files in the folder"
+exit
+fi
+
 usage=$(sudo df -h --output=pcent ~/LOG | tr -d 'Use%')
 if ! [ $usage -ge 70 ]
 then
 echo "Less than 70% filled"
-exit
-fi
-
-n=$(ls -l ~/LOG | wc | awk '{print $1}')
-n=$(( $n - 1 ))
-if [ $n -eq 0 ]
-then
-echo "There are no files in the folder"
 exit
 fi
 
@@ -34,7 +35,7 @@ fi
 
 sudo mkdir ~/LOG/nfiles
 cd LOG
-sudo mv -f $(ls -pt | tail -n $n) nfiles
+sudo mv -f $(ls -pt | tail -n 10) nfiles
 cd ..
 sudo tar -zcvf ~/BACKUP/arch.tar.gz -P ~/LOG/nfiles
 sudo rm -rf ~/LOG/nfiles
