@@ -9,7 +9,7 @@ int lastCoords = 305;
 		
 int loop() 
 {	
-	int userChoice = -1; 
+    int userChoice = -1; 
     int fd; 
     while(1){
      	FILE * file;
@@ -62,24 +62,24 @@ int loop()
 
 int main() { 
 	 
-	int pid = fork(); 
-	switch(pid) { 
-	case 0: 
+    int pid = fork(); 
+    switch(pid) { 
+    	case 0: 
 		setsid(); 
 		chdir("/"); 
-		fclose(stdin); 
+        	fclose(stdin); 
 		fclose(stdout); 
 		fclose(stderr);
 		loop(); 
 		exit(0); 
-	case -1: 
+    	case -1: 
 		printf("Unable to fork\n"); 
 		break; 
-	default: 
+    	default: 
 		printf("Daemon with pid %d is created\n", pid); 
 		break; 
-	}  
- 	return 0; 
+    }  
+    return 0; 
 }
 
 
