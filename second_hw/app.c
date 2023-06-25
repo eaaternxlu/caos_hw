@@ -9,7 +9,7 @@ int main() {
 		int fl = 0;
 		FILE * file;
 		file = fopen("/home/vboxuser/file.txt", "a+");
-		if (file == NULL) {return -1; }
+		if (file == NULL) return -1;
 		
 		printf("0 to turn off/on\n1 to check connection\n2 to get coordinates\n"
 			   "3 to check if the device is turned on\n"
@@ -21,7 +21,7 @@ int main() {
 		sleep(1);
 				
 		file = fopen("/home/vboxuser/file.txt", "a+");
-		if (file == NULL) {return -1; }
+		if (file == NULL) return -1;
 		while(fscanf(file, "%d", &userChoice) == 1);
 		
 		switch(userChoice) {
