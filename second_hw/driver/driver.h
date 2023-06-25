@@ -1,4 +1,3 @@
-
 int toggle(int currState);
 
 int getCoords();
