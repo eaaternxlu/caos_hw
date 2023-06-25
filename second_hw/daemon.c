@@ -9,7 +9,7 @@ int lastCoords = 305;
 		
 int loop() 
 {	
-	int userChoice = -1; 
+    int userChoice = -1; 
 
     while(1){
     	if (currState == 101) lastCoords = getCoords();
