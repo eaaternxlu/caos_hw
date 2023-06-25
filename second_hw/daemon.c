@@ -5,11 +5,11 @@
 
 int isConnected = 102;
 int currState = 100;
-int lastCoords = 305;
-
+int lastCoords = 305; 
+		
 int loop() 
-{ 
-    int userChoice = -1; 
+{	
+	int userChoice = -1; 
     int fd; 
     while(1){
      	FILE * file;
@@ -47,8 +47,8 @@ int loop()
 				}
 				break;        		
         	case 3:
-        	    fprintf(file, "%d\n", currState);
-        	    break;
+        		fprintf(file, "%d\n", currState);
+        		break;
         	case 4:
         		fprintf(file, "%d\n", lastCoords);
         		break;       		
@@ -61,22 +61,23 @@ int loop()
 } 
 
 int main() { 
+	 
 	int pid = fork(); 
-  	switch(pid) { 
-  	case 0: 
-    	setsid(); 
-    	chdir("/"); 
+	switch(pid) { 
+	case 0: 
+		setsid(); 
+		chdir("/"); 
 		fclose(stdin); 
 		fclose(stdout); 
-		fclose(stderr); 
+		fclose(stderr);
 		loop(); 
 		exit(0); 
 	case -1: 
 		printf("Unable to fork\n"); 
 		break; 
 	default: 
-	    printf("Daemon with pid %d is created\n", pid); 
-	    break; 
+		printf("Daemon with pid %d is created\n", pid); 
+		break; 
 	}  
  	return 0; 
 }
