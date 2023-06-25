@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include "driver.h"
 #include <unistd.h>
-#include <fcntl.h>
 #include <stdlib.h>
-#include <sys/stat.h>
 
 int isConnected = 103;
 int currState = 100;
@@ -11,7 +9,7 @@ int lastCoords = 305;
 
 int loop() 
 { 
-	int userChoice = -1; 
+    int userChoice = -1; 
     int fd; 
     while(1){
      	FILE * file;
@@ -20,7 +18,7 @@ int loop()
             return -1;
         while(fscanf(file, "%d", &userChoice) == 1);
         if(userChoice >= 100) {
-        	sleep(1);
+        	sleep(0.5);
         	fclose(file);
         	continue;    	
         }
