@@ -11,7 +11,7 @@ int main() {
 		file = fopen("/home/vboxuser/file.txt", "a+");
 		if (file == NULL) return -1;
 		
-		printf("0 to turn off/on\n1 to check connection\n2 to get coordinates\n"
+		printf("0 to turn off/on\n1 to check connection\n2 to get current coordinates if possible\n"
 			   "3 to check if the device is turned on\n"
 			   "4 for lastest coordinates\n5 to exit\n");
 		scanf("%d", &userChoice);

@@ -9,9 +9,11 @@ int lastCoords = 305;
 		
 int loop() 
 {	
-    int userChoice = -1; 
-    int fd; 
+	int userChoice = -1; 
+
     while(1){
+    	if (currState == 101) lastCoords = getCoords();
+    	
      	FILE * file;
         file = fopen("/home/vboxuser/file.txt", "a+");
         if(file == NULL) 
@@ -42,7 +44,6 @@ int loop()
         			fprintf(file, "%d\n", currState);
         		}
         		else {
-        			lastCoords = getCoords();
         			fprintf(file, "%d\n", lastCoords);
 				}
 				break;        		
@@ -62,24 +63,24 @@ int loop()
 
 int main() { 
 	 
-    int pid = fork(); 
-    switch(pid) { 
-    	case 0: 
-		setsid(); 
-		chdir("/"); 
-        	fclose(stdin); 
-		fclose(stdout); 
-		fclose(stderr);
-		loop(); 
-		exit(0); 
-    	case -1: 
-		printf("Unable to fork\n"); 
-		break; 
-    	default: 
-		printf("Daemon with pid %d is created\n", pid); 
-		break; 
-    }  
-    return 0; 
+	int pid = fork(); 
+	switch(pid) { 
+		case 0: 
+			setsid(); 
+			chdir("/"); 
+			fclose(stdin); 
+			fclose(stdout); 
+			fclose(stderr);
+			loop(); 
+			exit(0); 
+		case -1: 
+			printf("Unable to fork\n"); 
+			break; 
+		default: 
+			printf("Daemon with pid %d is created\n", pid); 
+			break; 
+	}  
+ 	return 0; 
 }
 
 
