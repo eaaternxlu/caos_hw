@@ -2,13 +2,12 @@
 #include "driver.h" 
 #include <unistd.h>
 
-
 int currentCoords = 312;
 int numOfSatelites = 3;
 
 int toggle(int currState) { 
  	sleep(0.5); 
- 	if (currState == 101) { return 100; } 
+ 	if (currState == 101) return 100;
  	return 101; 
 } 
  
