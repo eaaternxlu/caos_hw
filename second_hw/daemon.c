@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int isConnected = 103;
+int isConnected = 102;
 int currState = 100;
 int lastCoords = 305;
 
