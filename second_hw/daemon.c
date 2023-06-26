@@ -3,16 +3,16 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int isConnected = 102;
-int currState = 100;
-int lastCoords = 305; 
-		
-int loop() 
-{	
-    int userChoice = -1; 
-
-    while(1){
-    	if (currState == 101) lastCoords = getCoords();
+int lastCoords = 305;
+int isConnected = 0; 
+int isOn = 0;		
+int loop() {
+	int userChoice = -1; 
+    while(1) {
+    	isOn = checkIfIsOn();
+    	isConnected = checkConnection();
+    	
+    	if (isOn && isConnected) lastCoords = getCoords();
     	
      	FILE * file;
         file = fopen("/home/vboxuser/file.txt", "a+");
@@ -24,45 +24,51 @@ int loop()
         	fclose(file);
         	continue;    	
         }
-        switch(userChoice){
+        
+        switch(userChoice) {
+        
         	case 0:
-        		currState = toggle(currState);
-        		fprintf(file, "%d\n", currState);
+        		isOn = toggle(isOn);
+        		if (isOn) fprintf(file, "%d\n", 101);
+        		else fprintf(file, "%d\n", 100);
         		break;
+        		
         	case 1:
-        		if (currState == 100) {
-        			fprintf(file, "%d\n", currState);
+        		if (!isOn) {
+        			fprintf(file, "%d\n", 100);
         			break;
         		}
         		else {
-        			isConnected = checkConnection();
-        			fprintf(file, "%d\n", isConnected);
+        			if (isConnected) fprintf(file, "%d\n", 103);
+        			else fprintf(file, "%d\n", 102);
         			break;
         		}
+        		
         	case 2:
-        		if (currState == 100) {
-        			fprintf(file, "%d\n", currState);
+        		if (!isOn) {
+        			fprintf(file, "%d\n", 100);
         		}
         		else {
         			fprintf(file, "%d\n", lastCoords);
 				}
-				break;        		
+				break;
+				        		
         	case 3:
-        		fprintf(file, "%d\n", currState);
+        		if (isOn) fprintf(file, "%d\n", 101);
+        		else fprintf(file, "%d\n", 100);
         		break;
+        		
         	case 4:
         		fprintf(file, "%d\n", lastCoords);
         		break;       		
         }
         fclose(file); 
-        sleep(0.1); 
-             
+        sleep(0.1);     
     } 
     return 0; 
 } 
 
 int main() { 
-	 
 	int pid = fork(); 
 	switch(pid) { 
 		case 0: 
@@ -82,6 +88,3 @@ int main() {
 	}  
  	return 0; 
 }
-
-
-
