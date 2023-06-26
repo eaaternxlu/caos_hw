@@ -5,9 +5,10 @@
 
 int lastCoords = 305;
 int isConnected = 0; 
-int isOn = 0;		
+int isOn = 0;
+
 int loop() {
-	int userChoice = -1; 
+    int userChoice = -1; 
     while(1) {
     	isOn = checkIfIsOn();
     	isConnected = checkConnection();
