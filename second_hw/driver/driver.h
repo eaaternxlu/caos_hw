@@ -1,3 +1,5 @@
+int checkIfIsOn();
+
 int toggle(int currState);
 
 int getCoords();

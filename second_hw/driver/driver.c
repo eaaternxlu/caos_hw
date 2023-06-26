@@ -4,11 +4,22 @@
 
 int currentCoords = 312;
 int numOfSatelites = 3;
+int isOn1 = 0;
+
+int checkIfIsOn() {
+	return isOn1;
+}
 
 int toggle(int currState) { 
  	sleep(0.5); 
- 	if (currState == 101) return 100;
- 	return 101; 
+ 	if (currState) {
+ 		isOn1 = 0;
+ 		return 0;
+ 	}
+ 	else {
+ 		isOn1 = 1;	
+ 		return 1;
+ 	} 
 } 
  
 int getCoords() { 
@@ -18,7 +29,6 @@ int getCoords() {
  
 int checkConnection() { 
  	sleep(0.5); 
- 	if (numOfSatelites < 3) return 102; 
- 	return 103; 
+ 	if (numOfSatelites < 3) return 0; 
+ 	return 1; 
 }
-
